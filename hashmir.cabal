@@ -1,0 +1,45 @@
+name:                hashmir
+version:             0.1.0.0
+synopsis:            A simple project to show yeshql with MySQL
+homepage:            https://github.com/adomokos/hashmir#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Attila Domokos
+maintainer:          adomokos@gmail.com
+copyright:           2017 Attila Domokos
+category:            Console
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+-- To avoid duplicated efforts in documentation and dealing with the
+-- complications of embedding Haddock markup inside cabal files, it is
+-- common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/githubuser/hashmir#readme>
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+  default-language:    Haskell2010
+
+executable hashmir-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , hashmir
+  default-language:    Haskell2010
+
+test-suite hashmir-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , hashmir
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/githubuser/hashmir
