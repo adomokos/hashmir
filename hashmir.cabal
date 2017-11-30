@@ -19,6 +19,9 @@ library
   ghc-options: -Wall
   build-depends:
       base >= 4.7 && < 5
+    , yeshql
+    , HDBC
+    , HDBC-mysql
   exposed-modules:
       Lib
   other-modules:
@@ -32,5 +35,8 @@ executable hashmir-exe
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >= 4.7 && < 5
+    , yeshql
+    , HDBC
+    , HDBC-mysql
     , hashmir
   default-language: Haskell2010
