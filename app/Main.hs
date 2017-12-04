@@ -39,6 +39,8 @@ countClient :: IO ()
 countClient = do
     conn <- getConn
     Just (clientCount) <- countClientSQL conn
+    H.commit conn
+    H.disconnect conn
     putStrLn $ "There are " ++ show clientCount ++ " records."
 
 main :: IO ()
