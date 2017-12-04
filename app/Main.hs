@@ -4,11 +4,17 @@
 module Main where
 
 import Database.YeshQL
+import qualified Database.HDBC as H
 import Database.HDBC.MySQL
 
 [yesh|
     -- name:countClientSQL :: (Int)
     SELECT count(id) FROM clients;
+    ;;;
+    -- name:insertClientSQL
+    -- :client_name :: String
+    -- :subdomain :: String
+    INSERT INTO clients (name, subdomain) VALUES (:client_name, :subdomain);
 |]
 
 getConn :: IO Connection
@@ -21,6 +27,14 @@ getConn = do
         mysqlUnixSocket = "/tmp/mysql.sock"
     }
 
+insertClient :: String -> String -> IO ()
+insertClient name subdomain = do
+    conn <- getConn
+    clientId <- insertClientSQL name subdomain conn
+    H.commit conn
+    H.disconnect conn
+    putStrLn $ "New client's id is " ++ show clientId
+
 countClient :: IO ()
 countClient = do
     conn <- getConn
@@ -28,4 +42,6 @@ countClient = do
     putStrLn $ "There are " ++ show clientCount ++ " records."
 
 main :: IO ()
-main = countClient
+main = do
+  insertClient "TestClient" "testclient"
+  countClient
