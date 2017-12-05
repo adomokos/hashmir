@@ -42,10 +42,7 @@ insertClient name subdomain = do
 
 countClient :: IO ()
 countClient = do
-    conn <- getConn
-    Just (clientCount) <- countClientSQL conn
-    H.commit conn -- added line
-    H.disconnect conn -- added line
+    Just (clientCount) <- withConn countClientSQL
     putStrLn $ "There are " ++ show clientCount ++ " records."
 
 main :: IO ()
