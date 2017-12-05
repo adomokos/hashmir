@@ -37,10 +37,7 @@ withConn f = do
 
 insertClient :: String -> String -> IO ()
 insertClient name subdomain = do
-    clientId <-
-        withConn (\conn -> do
-            insertClientSQL name subdomain conn
-        )
+    clientId <- withConn $ do insertClientSQL name subdomain
     putStrLn $ "New client's id is " ++ show clientId
 
 countClient :: IO ()
