@@ -35,17 +35,16 @@ withConn f = do
     H.disconnect conn
     return result
 
-insertClient :: String -> String -> IO ()
+insertClient :: String -> String -> IO Integer
 insertClient name subdomain = do
-    clientId <- withConn $ do insertClientSQL name subdomain
-    putStrLn $ "New client's id is " ++ show clientId
+    withConn $ do insertClientSQL name subdomain
 
-countClient :: IO ()
-countClient = do
-    Just (clientCount) <- withConn countClientSQL
-    putStrLn $ "There are " ++ show clientCount ++ " records."
+countClient :: IO (Maybe Int)
+countClient = do withConn countClientSQL
 
 main :: IO ()
 main = do
-  insertClient "TestClient" "testclient"
-  countClient
+    clientId <- insertClient "TestClient" "testclient"
+    putStrLn $ "New client's id is " ++ show clientId
+    Just clientCount <- countClient
+    putStrLn $ "There are " ++ show clientCount ++ " records."
