@@ -36,11 +36,11 @@ withConn f = do
     return result
 
 insertClient :: String -> String -> IO Integer
-insertClient name subdomain = do
-    withConn $ do insertClientSQL name subdomain
+insertClient name subdomain =
+    withConn $ insertClientSQL name subdomain
 
 countClient :: IO (Maybe Int)
-countClient = do withConn countClientSQL
+countClient = withConn countClientSQL
 
 main :: IO ()
 main = do
