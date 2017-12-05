@@ -23,7 +23,7 @@ library
     , HDBC
     , HDBC-mysql
   exposed-modules:
-      Lib
+      Hashmir.Data
   other-modules:
       Paths_hashmir
   default-language: Haskell2010
