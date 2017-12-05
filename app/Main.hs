@@ -27,20 +27,28 @@ getConn = do
         mysqlUnixSocket = "/tmp/mysql.sock"
     }
 
-insertClient :: String -> String -> IO ()
-insertClient name subdomain = do
+withConn :: (Connection -> IO b) -> IO b
+withConn f = do
     conn <- getConn
-    clientId <- insertClientSQL name subdomain conn
+    result <- f conn
     H.commit conn
     H.disconnect conn
+    return result
+
+insertClient :: String -> String -> IO ()
+insertClient name subdomain = do
+    clientId <-
+        withConn (\conn -> do
+            insertClientSQL name subdomain conn
+        )
     putStrLn $ "New client's id is " ++ show clientId
 
 countClient :: IO ()
 countClient = do
     conn <- getConn
     Just (clientCount) <- countClientSQL conn
-    H.commit conn
-    H.disconnect conn
+    H.commit conn -- added line
+    H.disconnect conn -- added line
     putStrLn $ "There are " ++ show clientCount ++ " records."
 
 main :: IO ()
