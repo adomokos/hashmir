@@ -26,6 +26,9 @@ build: ## Builds the project with stack
 run: build-db ## Runs the app
 	time ~/.local/bin/hashmir-exe
 
+test: build ## Run the specs
+	@stack test
+
 .PHONY: help
 
 help:

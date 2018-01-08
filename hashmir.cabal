@@ -40,3 +40,20 @@ executable hashmir-exe
     , HDBC-mysql
     , hashmir
   default-language: Haskell2010
+
+test-suite hashmir-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test/
+  ghc-options: -Wall
+  build-depends:
+      base >= 4.7 && < 5
+    , yeshql
+    , HDBC
+    , HDBC-mysql
+    , hashmir
+    , hspec == 2.*
+  other-modules:
+      Hashmir.DataSpec
+  default-language: Haskell2010
