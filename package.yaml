@@ -36,3 +36,4 @@ tests:
       - hspec == 2.*
     other-modules:
       Hashmir.DataSpec
+      SpecHelper
