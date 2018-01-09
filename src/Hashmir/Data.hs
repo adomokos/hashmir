@@ -41,10 +41,7 @@ withConn f = do
 
 insertClient :: String -> String -> IO Integer
 insertClient name subdomain =
-    withConn (\conn -> do
-        insertClientSQL name subdomain conn)
+    withConn $ insertClientSQL name subdomain
 
 countClient :: IO (Maybe Int)
-countClient = do
-    withConn(\conn -> do
-        countClientSQL conn)
+countClient = withConn countClientSQL
