@@ -27,7 +27,7 @@ run: build-db ## Runs the app
 	@time ~/.local/bin/hashmir-exe
 
 test: build-db ## Run the specs
-	APP_ENV=test stack test
+	@stack test
 
 .PHONY: help test
 

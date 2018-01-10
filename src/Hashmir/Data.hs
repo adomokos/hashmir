@@ -6,7 +6,6 @@ module Hashmir.Data where
 import Database.YeshQL
 import qualified Database.HDBC as H
 import Database.HDBC.MySQL
-import qualified System.Environment as E
 
 [yesh|
     -- name:countClientSQL :: (Int)
@@ -16,6 +15,14 @@ import qualified System.Environment as E
     -- :client_name :: String
     -- :subdomain :: String
     INSERT INTO clients (name, subdomain) VALUES (:client_name, :subdomain);
+    ;;;
+    -- name:insertUserSQL
+    -- :client_id :: Integer
+    -- :login :: String
+    -- :email :: String
+    -- :password :: String
+    INSERT INTO users (client_id, login, email, password)
+    VALUES (:client_id, :login, :email, :password);
 |]
 
 getConn :: IO Connection
@@ -32,16 +39,17 @@ withConn :: (Connection -> IO b) -> IO b
 withConn f = do
     conn <- getConn
     result <- f conn
-    env <- E.lookupEnv("APP_ENV")
-    if env == Just "test"
-        then H.rollback conn  -- roll back the txn for "tests"
-        else H.commit conn
+    H.commit conn
     H.disconnect conn
     return result
 
 insertClient :: String -> String -> IO Integer
 insertClient name subdomain =
     withConn $ insertClientSQL name subdomain
+
+insertUser :: Integer -> String -> String -> String -> IO Integer
+insertUser clientId login email password =
+    withConn $ insertUserSQL clientId login email password
 
 countClient :: IO (Maybe Int)
 countClient = withConn countClientSQL

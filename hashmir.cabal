@@ -19,6 +19,7 @@ library
   ghc-options: -Wall
   build-depends:
       base >= 4.7 && < 5
+    , process
     , yeshql
     , HDBC
     , HDBC-mysql
@@ -35,6 +36,7 @@ executable hashmir-exe
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >= 4.7 && < 5
+    , process
     , yeshql
     , HDBC
     , HDBC-mysql
@@ -49,6 +51,7 @@ test-suite hashmir-test
   ghc-options: -Wall
   build-depends:
       base >= 4.7 && < 5
+    , process
     , yeshql
     , HDBC
     , HDBC-mysql

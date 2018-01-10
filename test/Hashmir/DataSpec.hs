@@ -3,13 +3,21 @@ module Hashmir.DataSpec where
 import SpecHelper
 
 import qualified Hashmir.Data as D
+import System.Process
+
+resetDB :: IO ()
+resetDB = callCommand "make build-db"
+
+main :: IO ()
+main = hspec spec
 
 spec :: Spec
-spec = do
+spec = before resetDB $ do
     describe "Hashmir Data" $ do
         it "creates a Client record" $ do
             clientId <- D.insertClient "TestClient" "testclient"
             clientId `shouldBe` 1
-
-main :: IO ()
-main = hspec spec
+        it "creates a Client and a User record" $ do
+            clientId <- D.insertClient "TestClient" "testclient"
+            userId <- D.insertUser clientId "joe" "joe@example.com" "password1"
+            userId `shouldBe` 1
