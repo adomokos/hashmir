@@ -1,7 +1,6 @@
 module Hashmir.DataSpec where
 
 import SpecHelper
-import qualified Database.HDBC as H
 import qualified Hashmir.Data as D
 
 main :: IO ()
@@ -23,3 +22,5 @@ spec = before resetDB $ do
                 clientId <- D.insertClient "TestClient" "testclient" conn
                 D.insertUser (clientId+1) "joe" "joe@example.com" "password1" conn))
                 `shouldThrow` anyException
+            clientCount <- D.withConn $ D.countClientSQL
+            clientCount `shouldBe` Just 0

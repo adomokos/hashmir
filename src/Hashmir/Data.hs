@@ -52,6 +52,3 @@ insertUser :: H.IConnection conn =>
                     Integer -> String -> String -> String -> conn -> IO Integer
 insertUser clientId login email password =
     insertUserSQL clientId login email password
-
-countClient :: IO (Maybe Int)
-countClient = withConn countClientSQL
