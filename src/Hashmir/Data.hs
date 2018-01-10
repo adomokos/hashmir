@@ -43,13 +43,15 @@ withConn f = do
     H.disconnect conn
     return result
 
-insertClient :: String -> String -> IO Integer
+insertClient :: H.IConnection conn =>
+                      String -> String -> conn -> IO Integer
 insertClient name subdomain =
-    withConn $ insertClientSQL name subdomain
+    insertClientSQL name subdomain
 
-insertUser :: Integer -> String -> String -> String -> IO Integer
+insertUser :: H.IConnection conn =>
+                    Integer -> String -> String -> String -> conn -> IO Integer
 insertUser clientId login email password =
-    withConn $ insertUserSQL clientId login email password
+    insertUserSQL clientId login email password
 
 countClient :: IO (Maybe Int)
 countClient = withConn countClientSQL
