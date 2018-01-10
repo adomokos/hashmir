@@ -1,12 +1,7 @@
 module Hashmir.DataSpec where
 
 import SpecHelper
-
 import qualified Hashmir.Data as D
-import System.Process
-
-resetDB :: IO ()
-resetDB = callCommand "make build-db"
 
 main :: IO ()
 main = hspec spec
