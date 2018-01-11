@@ -1,11 +1,10 @@
 module Main where
 
-import Hashmir.Data
+import qualified Hashmir.Data as D
 
 main :: IO ()
 main = do
-    putStrLn "OK"
-    {- clientId <- insertClient "TestClient" "testclient" -}
-    {- putStrLn $ "New client's id is " ++ show clientId -}
-    {- Just clientCount <- countClient -}
-    {- putStrLn $ "There are " ++ show clientCount ++ " records." -}
+    clientId <- D.withConn $ D.insertClient "TestClient" "testclient"
+    putStrLn $ "New client's id is " ++ show clientId
+    Just clientCount <- D.withConn D.countClientSQL
+    putStrLn $ "There are " ++ show clientCount ++ " records."
