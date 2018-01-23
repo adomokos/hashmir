@@ -26,7 +26,10 @@ build: ## Builds the project with stack
 run: build-db ## Runs the app
 	time ~/.local/bin/hashmir-exe
 
-.PHONY: help
+test: ## Run the specs
+	@stack test
+
+.PHONY: help test
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

@@ -26,3 +26,13 @@ executables:
     dependencies:
       hashmir
     ghc-options: -threaded -rtsopts -with-rtsopts=-N
+
+tests:
+  hashmir-test:
+    source-dirs: test/
+    main: Spec.hs
+    dependencies:
+      - hashmir
+      - hspec == 2.*
+    other-modules:
+      Hashmir.DataSpec
