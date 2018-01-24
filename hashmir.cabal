@@ -52,6 +52,7 @@ test-suite hashmir-test
     , yeshql
     , HDBC
     , HDBC-mysql
+    , process
     , hashmir
     , hspec == 2.*
   other-modules:

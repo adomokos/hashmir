@@ -32,6 +32,7 @@ tests:
     source-dirs: test/
     main: Spec.hs
     dependencies:
+      - process
       - hashmir
       - hspec == 2.*
     other-modules:
