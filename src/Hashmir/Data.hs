@@ -15,6 +15,14 @@ import Database.HDBC.MySQL
     -- :client_name :: String
     -- :subdomain :: String
     INSERT INTO clients (name, subdomain) VALUES (:client_name, :subdomain);
+    ;;;
+    -- name:insertUserSQL
+    -- :client_id :: Integer
+    -- :login :: String
+    -- :email :: String
+    -- :password :: String
+    INSERT INTO users (client_id, login, email, password)
+    VALUES (:client_id, :login, :email, :password);
 |]
 
 getConn :: IO Connection
@@ -41,3 +49,7 @@ insertClient name subdomain =
 
 countClient :: IO (Maybe Int)
 countClient = withConn countClientSQL
+
+insertUser :: Integer -> String -> String -> String -> IO Integer
+insertUser clientId login email password =
+    withConn $ insertUserSQL clientId login email password

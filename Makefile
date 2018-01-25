@@ -12,7 +12,6 @@ create-db-user: ## Creates a DB user with the root MySQL user
 	mysql -u root --host $(HOST) -e "GRANT ALL PRIVILEGES ON `$(DBNAME)`.* TO '$(DBUSER)'@'$(HOST)';" > /dev/null 2>&1
 
 build-db: ## Builds the DB
-	@echo "Dropping and rebuilding database $(DBNAME)"
 	@mysql -u $(DBUSER) --password='$(DBPASSWD)' --host $(HOST) -e "DROP DATABASE IF EXISTS $(DBNAME);" > /dev/null 2>&1
 	@mysql -u $(DBUSER) --password='$(DBPASSWD)' --host $(HOST) -e "CREATE DATABASE $(DBNAME);" > /dev/null 2>&1
 	@mysql -u $(DBUSER) --password='$(DBPASSWD)' --host $(HOST) $(DBNAME) < resources/schema.sql > /dev/null 2>&1

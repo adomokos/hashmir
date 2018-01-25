@@ -16,3 +16,7 @@ spec = before resetDB $ do
         it "creates a Client record" $ do
             clientId <- D.insertClient "TestClient" "testclient"
             clientId `shouldBe` 1
+        it "creates a Client and a User record" $ do
+            clientId <- D.insertClient "TestClient" "testclient"
+            userId <- D.insertUser clientId "joe" "joe@example.com" "password1"
+            userId `shouldBe` 1
