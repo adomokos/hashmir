@@ -11,7 +11,7 @@ resetDB :: IO ()
 resetDB = callCommand "make build-db"
 
 spec :: Spec
-spec = before resetDB $ do
+spec = before resetDB $
     describe "Hashmir Data" $ do
         it "creates a Client record" $ do
             clientId <- D.withConn $ D.insertClient "TestClient" "testclient"
@@ -22,9 +22,9 @@ spec = before resetDB $ do
                 D.insertUser clientId "joe" "joe@example.com" "password1" conn)
             userId `shouldBe` 1
         it "rolls back the transaction when failure occurs" $ do
-            (D.withConn (\conn -> do
+            D.withConn (\conn -> do
                 clientId <- D.insertClient "TestClient" "testclient" conn
-                D.insertUser (clientId+1) "joe" "joe@example.com" "password1" conn))
+                D.insertUser (clientId+1) "joe" "joe@example.com" "password1" conn)
                 `shouldThrow` anyException
-            clientCount <- D.withConn $ D.countClientSQL
+            clientCount <- D.withConn D.countClientSQL
             clientCount `shouldBe` Just 0

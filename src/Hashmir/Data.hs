@@ -26,7 +26,7 @@ import Database.HDBC.MySQL
 |]
 
 getConn :: IO Connection
-getConn = do
+getConn =
     connectMySQL defaultMySQLConnectInfo {
         mysqlHost     = "localhost",
         mysqlDatabase = "hashmir_test",
@@ -45,13 +45,11 @@ withConn f = do
 
 insertClient :: H.IConnection conn =>
                       String -> String -> conn -> IO Integer
-insertClient name subdomain =
-    insertClientSQL name subdomain
+insertClient = insertClientSQL
 
 countClient :: IO (Maybe Int)
 countClient = withConn countClientSQL
 
 insertUser :: H.IConnection conn =>
                     Integer -> String -> String -> String -> conn -> IO Integer
-insertUser clientId login email password =
-    insertUserSQL clientId login email password
+insertUser = insertUserSQL

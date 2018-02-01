@@ -1,6 +1,8 @@
--- This file has been generated from package.yaml by hpack version 0.18.1.
+-- This file has been generated from package.yaml by hpack version 0.20.0.
 --
 -- see: https://github.com/sol/hpack
+--
+-- hash: c50d8fdabf8b39c9ec5e5b92175395588d1b8088ae172accf0ffe27d3a37ecd4
 
 name:           hashmir
 version:        0.1.0.0
@@ -18,10 +20,10 @@ library
       src/
   ghc-options: -Wall
   build-depends:
-      base >= 4.7 && < 5
-    , yeshql
-    , HDBC
+      HDBC
     , HDBC-mysql
+    , base >=4.7 && <5
+    , yeshql
   exposed-modules:
       Hashmir.Data
   other-modules:
@@ -34,11 +36,13 @@ executable hashmir-exe
       app/
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >= 4.7 && < 5
-    , yeshql
-    , HDBC
+      HDBC
     , HDBC-mysql
+    , base >=4.7 && <5
     , hashmir
+    , yeshql
+  other-modules:
+      Paths_hashmir
   default-language: Haskell2010
 
 test-suite hashmir-test
@@ -48,13 +52,13 @@ test-suite hashmir-test
       test/
   ghc-options: -Wall
   build-depends:
-      base >= 4.7 && < 5
-    , yeshql
-    , HDBC
+      HDBC
     , HDBC-mysql
-    , process
+    , base >=4.7 && <5
     , hashmir
-    , hspec == 2.*
+    , hspec ==2.*
+    , process
+    , yeshql
   other-modules:
       Hashmir.DataSpec
   default-language: Haskell2010
